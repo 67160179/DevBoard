@@ -32,17 +32,28 @@ function AddPostForm({ onAddPost }) {
         type="text"
         placeholder="หัวข้อโพสต์"
         value={title}
+        maxLength={100}
         onChange={(e) => setTitle(e.target.value)}
         style={{
           width: "100%",
           padding: "0.5rem",
-          marginBottom: "0.5rem",
+          marginBottom: "0.25rem",
           border: "1px solid #cbd5e0",
           borderRadius: "4px",
           fontSize: "1rem",
           boxSizing: "border-box",
         }}
       />
+      <p
+        style={{
+          textAlign: "right",
+          fontSize: "0.85rem",
+          margin: "0 0 0.5rem",
+          color: 100 - title.length < 10 ? "red" : "#718096",
+        }}
+      >
+        {title.length}/100
+      </p>
 
       <textarea
         placeholder="เนื้อหาโพสต์"
