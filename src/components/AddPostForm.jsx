@@ -4,12 +4,15 @@ function AddPostForm({ onAddPost }) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
+  const maxLength = 100;
+  const remaining = maxLength - title.length;
+
   function handleSubmit(e) {
     e.preventDefault();
-    if (!title.trim() || !body.trim()) return; // ป้องกันส่งว่าง
+    if (!title.trim() || !body.trim()) return;
 
     onAddPost({ title, body });
-    setTitle(""); // เคลียร์ form
+    setTitle("");
     setBody("");
   }
 
@@ -28,32 +31,36 @@ function AddPostForm({ onAddPost }) {
         เพิ่มโพสต์ใหม่
       </h3>
 
-      <input
-        type="text"
-        placeholder="หัวข้อโพสต์"
-        value={title}
-        maxLength={100}
-        onChange={(e) => setTitle(e.target.value)}
-        style={{
-          width: "100%",
-          padding: "0.5rem",
-          marginBottom: "0.25rem",
-          border: "1px solid #cbd5e0",
-          borderRadius: "4px",
-          fontSize: "1rem",
-          boxSizing: "border-box",
-        }}
-      />
-      <p
-        style={{
-          textAlign: "right",
-          fontSize: "0.85rem",
-          margin: "0 0 0.5rem",
-          color: 100 - title.length < 10 ? "red" : "#718096",
-        }}
-      >
-        {title.length}/100
-      </p>
+      {/* input + counter */}
+      <div style={{ marginBottom: "0.5rem" }}>
+        <input
+          type="text"
+          placeholder="หัวข้อโพสต์"
+          value={title}
+          maxLength={maxLength}
+          onChange={(e) => setTitle(e.target.value)}
+          style={{
+            width: "100%",
+            padding: "0.5rem",
+            border: "1px solid #cbd5e0",
+            borderRadius: "4px",
+            fontSize: "1rem",
+            boxSizing: "border-box",
+          }}
+        />
+
+        {/* Character Counter */}
+        <div
+          style={{
+            textAlign: "right",
+            fontSize: "0.85rem",
+            marginTop: "0.25rem",
+            color: remaining < 10 ? "red" : "#718096",
+          }}
+        >
+          {title.length}/{maxLength}
+        </div>
+      </div>
 
       <textarea
         placeholder="เนื้อหาโพสต์"
