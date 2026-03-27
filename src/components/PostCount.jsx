@@ -1,6 +1,6 @@
 function PostCount({ count }) {
   return (
-    <p style={{ margin: "0.5rem 0 1rem", color: "#555" }}>
+    <p style={{ color: "#4a5568", marginBottom: "1rem" }}>
       โพสต์ทั้งหมด: {count} รายการ
     </p>
   );

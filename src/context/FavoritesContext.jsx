@@ -1,12 +1,12 @@
-import { createContext, useContext, useState } from "react";
-
+import { createContext, useContext, useState, useEffect } from "react";
 // 1. สร้าง context object
 const FavoritesContext = createContext();
 
 // 2. Provider component — ครอบ App ทั้งหมด
 export function FavoritesProvider({ children }) {
-  const [favorites, setFavorites] = useState([]);
-
+  const [favorites, setFavorites] = useState(() => {
+    return JSON.parse(localStorage.getItem("favorites") || "[]");
+  });
   function toggleFavorite(postId) {
     setFavorites((prev) =>
       prev.includes(postId)
@@ -14,6 +14,9 @@ export function FavoritesProvider({ children }) {
         : [...prev, postId],
     );
   }
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
   return (
     <FavoritesContext.Provider value={{ favorites, toggleFavorite }}>
